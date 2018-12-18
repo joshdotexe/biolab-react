@@ -1,9 +1,92 @@
+.no-width{
+  width:0;
+}
+.expand-button{
+  display: none;
+}
+.expand-button.is-active{
+  display: block;
+
+} 
+
+.mdl-list__item:hover{
+ background-color: gainsboro;
+}
+.full-width{
+  width: 100%;
+}
+.glyph {
+  display: inline-block;
+  width: 9em;
+  margin: 1em;
+  text-align: center;
+  vertical-align: top;
+  background: #FFF;
+}
+.glyph .glyph-icon.small {
+  font-size: 8px;
+}
+.glyph .glyph-icon {
+  padding: 10px;
+  display: block;
+  font-family:"Flaticon";
+  font-size: 64px;
+  line-height: 1;
+}
+.glyph .glyph-icon:before {
+  font-size: 64px;
+  color:grey;
+  margin-left: 0;
+}
+.field-group-col { display:flex; flex-direction:column; margin-right:-8px; justify-content: center; }
+.field-group-col > * { width:100%; margin:0px 8px 0px 0px; }
+.center-text{
+  text-align: center;
+}
+.balance-border{
+  display: flex;
+  justify-content: center;
+}
+.y-center{
+  align-items: center;
+}
+.app-input{
+  flex: 1 1 290px;
+}
+.app-input > input{
+  flex: 1 1 200px;
+}
+.app-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+  padding-right: 0;
+}
+.flex-container.col{
+margin-right: 4px;
+}
+.card-wide{
+  margin: auto;
+  margin-top: 8px;  
+  max-width: 768px;
+  width: 100%;
+}
+.row{
+  flex-direction: row;
+}
+.col{
+  flex-direction: column;
+}
+.flex-container{
+  display: flex;
+  
+}
+footer.mdl-mini-footer{
+  background-color: rgb(40, 44, 52);
+}
 .App {
   text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  /*animation: App-logo-spin infinite 20s linear;*/
   height: 40vmin;
 }
 

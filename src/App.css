@@ -1,3 +1,13 @@
+.error{
+  color:red;
+}
+.info{
+  font-size: x-small;
+  color: grey;
+}
+.margin-right-8dp{
+  margin-right: 8px;
+}
 .no-width{
   width:0;
 }
@@ -8,7 +18,9 @@
   display: block;
 
 } 
-
+.mdl-button--icon{
+  color:grey;
+}
 .mdl-list__item:hover{
  background-color: gainsboro;
 }
@@ -49,6 +61,7 @@
 }
 .y-center{
   align-items: center;
+  
 }
 .app-input{
   flex: 1 1 290px;
@@ -61,11 +74,10 @@
 }
 .flex-container.col{
 margin-right: 4px;
+
 }
 .card-wide{
-  margin: auto;
-  margin-top: 8px;  
-  max-width: 768px;
+  max-width:768px;
   width: 100%;
 }
 .row{
@@ -74,9 +86,19 @@ margin-right: 4px;
 .col{
   flex-direction: column;
 }
+
+.flex-container > *{
+  flex:1 1 300px;
+  margin-right: 4px;
+}
 .flex-container{
+  padding: 16px;
   display: flex;
-  
+  width: 100%;
+  margin: auto;
+  max-width: 1200px;
+  align-items: flex-start;
+  overflow-y:visible;   
 }
 footer.mdl-mini-footer{
   background-color: rgb(40, 44, 52);

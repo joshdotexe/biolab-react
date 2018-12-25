@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ChemSearchList from './chem-search-list'
-import Antena from '../antena-components/antena.js'
+import ChemApi from './chem-api'
+
 
 
 class ChemSearch extends Component {
@@ -8,27 +9,24 @@ class ChemSearch extends Component {
         this.setState({
             search: '',
             searchResults: [],
-            clrIsActive: '',
-            noWidth:'no-width'            
-            
+            clrIsActive: '',           
         },function(){
             console.log(this.state);
         });
     }
-    getChemData(chem) {
-        this.props.onChemSelected(chem, Boolean(this.props.isReactant));
+    getChemInfo(chem) {
+        this.props.onChemInfo(chem);
+    }
+    getChemFormula(chem) {
+        this.props.onChemSelected(chem, this.props.isReactant === "true");
     }
     onChemSearchResponse(response) {
-        if (response.total === 0) return;
-        var searchResults = response.dictionary_terms.compound;
         this.setState({
-            searchResults: searchResults
+            searchResults: response
         });
     }
     searchChemData(query) {
-        //console.log(value);
-        this.chemSearchAntena.current.state.url = `https://pubchem.ncbi.nlm.nih.gov/rest/autocomplete/compound/${query}/json?limit=5`;
-        this.chemSearchAntena.current.generateRequest();
+        this.chemSearchAntena.current.searchChem(query);
     }
     onSearchChanged(e) {
         var query = e.target.value;
@@ -38,42 +36,40 @@ class ChemSearch extends Component {
         if (!query) {
             this.setState({
                 searchResults: [],
-                clrIsActive:'',
-                noWidth:'no-width'                
+                clrIsActive:'',              
             });
         }
         else {
             this.searchChemData(query);
             this.setState({
                 clrIsActive:"is-active",
-            })
+            });
         }
     }
     render() {
         return (
             <div>
-                <Antena ref={this.chemSearchAntena} onResponse={this.onChemSearchResponse.bind(this)} />
+                <ChemApi ref={this.chemSearchAntena} onSearchResponse={this.onChemSearchResponse.bind(this)} />
 
-                <div className="flex-container y-center">
-                    <div className="app-input mdl-textfield mdl-js-textfield">
-                        <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="sample6">
+                <div className="flex-group y-center">
+                    <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                        <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor={`${this.props.name}-input`}>
                             <i className="material-icons">search</i>
                         </label>
-                        <div className="flex-container mdl-textfield__expandable-holder">
-                            <input className={`mdl-textfield__input ${this.state.noWidth}`} type="text" id="sample6"
+                        <div className="flex-group mdl-textfield__expandable-holder">
+                            <input className="mdl-textfield__input" type="text" id={`${this.props.name}-input`}
                                 value={this.state.search}
                                 onChange={this.onSearchChanged.bind(this)} />
                         </div>
                     </div>
-                    <button onClick={this.onClear.bind(this)} 
+                    {/* <button onClick={this.onClear.bind(this)} 
                     className={`expand-button mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect ${this.state.clrIsActive}`}>
                         <i className="material-icons">clear</i>
-                    </button>
+                    </button> */}
                 </div>
-
-
                 <ChemSearchList compounds={this.state.searchResults}
-                    onChemSelected={this.getChemData.bind(this)} />
+                    onChemSelected={this.getChemFormula.bind(this)}
+                    onChemInfo={this.getChemInfo.bind(this)} />
             </div>
         );
     }
@@ -83,8 +79,7 @@ class ChemSearch extends Component {
         this.state = {
             searchResults: [],
             search:'',
-            clrIsActive:'',
-            noWidth:''            
+            clrIsActive:''
         };
     }
 

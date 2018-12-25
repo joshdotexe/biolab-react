@@ -41,11 +41,17 @@ export function balanceEquation(reactants, products) {
         compoundsMatrix: compoundsMatrix
     }; 
     console.log(results);
-
     var coeffsResults = this.balance(compoundsMatrix);
     if (coeffsResults === null) {
 
-        return null;
+        return {
+            error:"Error occurred"
+        };
+    }
+    if(coeffsResults.error){
+        return {
+            error:coeffsResults.error
+        }
     }
     var coeffs = coeffsResults.coeffs;
     var _reactants = [];
@@ -143,7 +149,7 @@ export function balance(compoundsMatrix) {
     );
 
     console.log("cheminpsolver", { R: R, b: b, m: m, n: n, A: A, Z: Z, z: z, e: e, I: I, _I: _I });
-
+    var error;
     //m=m+n; n=2*n; 
     m = m + n;
     n *= 2;
@@ -249,9 +255,12 @@ export function balance(compoundsMatrix) {
         if abs(sd)>.00005*(abar+bbar)*0.5, ‘The system Ax=b is inconsistent.’, end; 
     */
     if (math.abs(sd) > .00005 * (abar + bbar) * 0.5) {
-        console.log("The system Ax=b is inconsistent.");
+        error = "The system Ax=b is inconsistent."
+        console.log(error);
         //TODO: show error
-        return;
+        return{
+            error:error
+        };
     }
     //   console.log("r & b & d", {R: R, b: b, delb:delb});
 
@@ -273,9 +282,10 @@ export function balance(compoundsMatrix) {
     *  if norm(P)<.00005, ‘The reaction is infeasible (coeffs. in reaction are all 0)’, return; end; 
     */
     if (math.norm(P, 'fro') < .00005) {
-        console.log("‘The reaction is infeasible (coeffs. in reaction are all 0)’");
+        error = "The reaction is infeasible (coeffs. in reaction are all 0)";
+        console.log(error);
         //TODO:
-        return null;
+        return {error:error};
     }
 
     //n=n/2; xx=x(1:n); ‘Actual sol.’,xx, xx=xx/min(xx); xxx=xx, 
@@ -314,26 +324,34 @@ export function balance(compoundsMatrix) {
     }
 
     var xxx1 = math.add(xxx, tenOnes);
+   
     if (k < 40) {
-
         console.log(`‘The integer coefficients of the reactants and products are’, ${xxx1}, ‘The smallest multiplying factor k used for the foregoing coefficients is’, ${k}`)
         return {
             coeffs: math.round(xxx1)._data,
-            _coeffs: xxx1._data
+            _coeffs: xxx1._data,
+            error:error
         };
     }
     else {
-        console.log(`‘The integer solution could not be obtained in this procedure.’; end; `)
+        error = "The integer solution could not be obtained in this procedure."
+        console.log(error);
     }
     //     if min(xxx1)<0, ‘Since a coefficient is negative, cheminpsolver failed; solve the ILP.’, end; 
     //     if rr==1, ‘cheminpsolver has failed, solve the ILP using any ILP solver.’, end; 
     if (math.min(xxx1) < 0) {
-        console.log("‘Since a coefficient is negative, cheminpsolver failed; solve the ILP.’ ");
+        error = "Since a coefficient is negative, cheminpsolver failed; solve the ILP.";
+        console.log(error);
         //TODO:
     }
     if (rr === true) {
-        console.log("‘cheminpsolver has failed, solve the ILP using any ILP solver.’");
+        error = "cheminpsolver has failed, solve the ILP using any ILP solver."
+        console.log(error);
         //TODO
     }
-    return null;
+    return {
+        coeffs: math.round(xxx1)._data,
+        _coeffs: xxx1._data,
+        error:error
+    };
 }

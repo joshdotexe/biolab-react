@@ -6,6 +6,7 @@ class ChemInput extends Component {
     }
     onEquationChanged(e){
         this.setState({ equation: e.target.value });  
+        this.props.onChange(e.target.value, this.props.name);
     }
     
     constructor(props){

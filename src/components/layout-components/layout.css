@@ -1,0 +1,70 @@
+
+/* layout-photo-card */
+.card-host { display:flex; margin:0px 4px 8px 4px; box-sizing:border-box; background-color:white; }
+.frame { flex: 1 1 600px; display:flex; flex-direction:column; box-sizing:border-box; }
+.photo { flex: 1 1 200px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; background-size: cover; background-position-x: center; background-position-y: center; }
+.body { flex: 1 1 auto; }
+.body { padding:0px 16px 0px 16px; }
+.body > * { margin: 16px 0px 16px 0px; }
+@media (max-width: 600px) {
+    .photo { flex: 0 1 150px; border-bottom-right-radius: 0px; border-top-left-radius: 2px; }
+    .frame { flex: 1 1 auto }
+}
+
+
+.group { display:flex; flex-wrap:wrap; margin-right:-8px; }
+.group .wrap{ flex: 1 1 240px; margin-right:8px;}
+label { font-size:12px; color:grey; font-family: Roboto, Noto, sans-serif; font-weight:400 }
+.wrap { margin: 12px 0px 13px 0px;}
+.empty { color:gainsboro }
+.content, .empty { margin-top: 4px; height:1.2em; }
+.content.xwrap { height: 1.2em; overflow: hidden; }
+.layout-main-dialog{
+    overflow-y:auto; flex:1 1 auto; padding:0px 32px 0px 32px;
+}
+.buttonarea{
+    display:flex; flex:1 0 auto; padding:32px;
+}
+.layout-card{
+    display:flex; flex-direction:column; box-sizing:border-box; flex:1 1 auto; margin:auto; background-color:white; min-width:320px; max-width:600px; max-height:70%; 
+}
+.scrim{
+    cursor:pointer; z-index:10000; position:fixed; display:flex; top:0px; left:0px; width:100%; height:100%; background-color: rgba(0,0,0,0.6)
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.layout-flex{
+    flex:1 1 auto;
+}
+.subheader > .actionarea{color:darkgray;}
+.subheader{ margin: 8px 0px 8px 0px; background-color:whitesmoke; height:2.4em; display:flex; align-items:center; padding:0px 8px 0px 8px;font-weight: 300;}
+.heading {  display:flex; align-items:center;  font-weight: 300;}
+.headerText { font-size: 18pt; font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin:32px;
+    font-weight: 300;
+}
+.subheading { color: grey; 
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;}
+.actionarea ::content .actions { color: gray; cursor: pointer; }
+
+@media (max-width: 600px) {
+    .host { flex-direction: column-reverse; }
+}
+
+.common-nowrap{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.common-base{
+    font-family: 'Roboto', 'Noto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
